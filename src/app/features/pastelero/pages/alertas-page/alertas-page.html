@@ -1,0 +1,79 @@
+
+<app-page-header
+  [title]="titulo"
+  [subtitle]="subtitulo">
+</app-page-header>
+
+<app-alert-box
+  [message]="mensaje"
+  [type]="tipoAlerta">
+</app-alert-box>
+
+<app-loading-spinner
+  [isLoading]="cargando">
+</app-loading-spinner>
+
+<app-card title="Alertas de Emergencia Pendientes">
+
+  <app-datatable
+    [headers]="[
+      'Dispositivo',
+      'Tipo de Alerta',
+      'Mensaje de Evento',
+      'Nivel Riesgo',
+      'Fecha Notificación',
+      'Acciones'
+    ]">
+
+    <tr *ngFor="let alt of alertas">
+
+      <td>
+        <strong>
+          {{ alt.dispositivo_nombre || 'Módulo ESP32' }}
+        </strong>
+      </td>
+
+      <td>
+        {{ alt.tipo_alerta_nombre || 'Evento Térmico' }}
+      </td>
+
+      <td>
+        {{ alt.mensaje }}
+      </td>
+
+      <td>
+        <app-status-badge
+          [text]="alt.nivel_riesgo || 'Alto'"
+          [type]="
+            alt.nivel_riesgo?.toLowerCase() === 'alto' ||
+            alt.nivel_riesgo?.toLowerCase() === 'crítico' ||
+            alt.nivel_riesgo?.toLowerCase() === 'critico'
+              ? 'danger'
+              : 'warning'
+          ">
+        </app-status-badge>
+      </td>
+
+      <td>
+        {{ alt.creado | date:'MMM dd, yyyy, h:mm a' }}
+      </td>
+
+      <td>
+        <app-button
+          variant="primary"
+          (click)="atender(alt)">
+          Marcar Atendida
+        </app-button>
+      </td>
+
+    </tr>
+
+    <tr *ngIf="!cargando && alertas.length === 0">
+      <td colspan="6" class="empty-state">
+        No hay alertas de emergencia pendientes en este momento.
+      </td>
+    </tr>
+
+  </app-datatable>
+
+</app-card>

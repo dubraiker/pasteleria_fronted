@@ -1,0 +1,11 @@
+<aside class="sidebar-container">
+  <nav class="sidebar-nav">
+    <ul>
+      <li *ngFor="let mod of authService.obtenerModulos()">
+        <a [routerLink]="mod.ruta" routerLinkActive="active-link">
+          {{ mod.nombre }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

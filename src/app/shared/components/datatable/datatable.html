@@ -1,0 +1,22 @@
+
+<div class="table-responsive">
+
+  <table class="custom-table">
+
+    <thead>
+      <tr>
+        <th *ngFor="let col of headers">
+          {{ col }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-content></ng-content>
+    </tbody>
+
+  </table>
+
+</div>
+
+

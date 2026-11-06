@@ -1,0 +1,22 @@
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.custom-table th {
+  background-color: #8c5344;
+  color: white;
+  text-align: left;
+  padding: 0.75rem;
+}
+
+.custom-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+}

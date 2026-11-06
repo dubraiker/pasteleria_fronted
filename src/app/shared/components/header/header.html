@@ -1,0 +1,28 @@
+
+<header class="main-header">
+
+  <div class="header-branding">
+    <h2>Pastelería Artesanal & IoT</h2>
+  </div>
+
+  <div class="header-user" *ngIf="authService.usuarioActual() as usr">
+
+    <div class="user-details">
+      <span class="user-name">
+        {{ usr.nombre }} {{ usr.apellido }}
+      </span>
+
+      <small class="user-email">
+        {{ usr.correo }}
+      </small>
+    </div>
+
+    <button
+      class="btn-logout"
+      (click)="authService.logout()">
+      Cerrar Sesión
+    </button>
+
+  </div>
+
+</header>

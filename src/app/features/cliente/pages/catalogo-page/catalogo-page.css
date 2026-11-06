@@ -1,0 +1,41 @@
+
+.grid-catalogo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.producto-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.descripcion {
+  color: #555;
+  font-size: 0.9rem;
+  margin: 0;
+  min-height: 2.5rem;
+}
+
+.precio-tag {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #8c5344;
+}
+
+.meta-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.yolo-badge {
+  font-family: monospace;
+  font-size: 0.75rem;
+  background: #f0f0f0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  color: #666;
+}

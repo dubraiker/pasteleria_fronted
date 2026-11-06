@@ -1,0 +1,139 @@
+
+<app-page-header
+  title="Gestión de Usuarios y Roles"
+  subtitle="Administración de cuentas, roles de acceso y credenciales del personal">
+</app-page-header>
+
+<app-alert-box
+  [message]="mensaje"
+  [type]="tipoAlerta">
+</app-alert-box>
+
+<app-loading-spinner [isLoading]="cargando"></app-loading-spinner>
+
+<app-card title="Directorio General de Usuarios">
+
+  <div class="actions-bar">
+    <app-button
+      variant="primary"
+      (click)="abrirModalCrear()">
+      + Nuevo Usuario
+    </app-button>
+  </div>
+
+  <app-datatable
+    [headers]="['Nombre Completo', 'Correo Electrónico', 'Perfil / Rol', 'Estado', 'Acciones']">
+
+    <tr *ngFor="let usr of usuarios">
+
+      <td>
+        <strong>{{ usr.nombre }} {{ usr.apellido }}</strong>
+      </td>
+
+      <td>{{ usr.correo }}</td>
+
+      <td>{{ obtenerNombrePerfil(usr.id_perfil) }}</td>
+
+      <td>
+        <app-status-badge
+          [text]="(usr.activo !== false && usr.estado !== false) ? 'Activo' : 'Inactivo'"
+          [type]="(usr.activo !== false && usr.estado !== false) ? 'success' : 'danger'">
+        </app-status-badge>
+      </td>
+
+      <td>
+        <app-button
+          variant="secondary"
+          (click)="abrirModalEditar(usr)">
+          Editar
+        </app-button>
+
+        <app-button
+          variant="danger"
+          (click)="eliminarUsuario(usr)">
+          Desactivar
+        </app-button>
+      </td>
+
+    </tr>
+
+  </app-datatable>
+
+</app-card>
+
+<!-- Modal para crear o editar usuarios -->
+
+<app-modal
+  [(isOpen)]="modalAbierto"
+  [title]="modoEdicion ? 'Editar Usuario' : 'Registrar Nuevo Usuario Administrativo'">
+
+  <form (ngSubmit)="guardarUsuario()">
+
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevoUsuario.nombre"
+        name="nombre"
+        class="form-control"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label>Apellido:</label>
+      <input
+        type="text"
+        [(ngModel)]="nuevoUsuario.apellido"
+        name="apellido"
+        class="form-control"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label>Correo Electrónico:</label>
+      <input
+        type="email"
+        [(ngModel)]="nuevoUsuario.correo"
+        name="correo"
+        class="form-control"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña:</label>
+      <input
+        type="password"
+        [(ngModel)]="nuevoUsuario.password"
+        name="password"
+        class="form-control"
+        [required]="!modoEdicion"
+        [placeholder]="modoEdicion ? 'Dejar vacío para conservar la contraseña' : 'Ingrese una contraseña'" />
+    </div>
+
+    <div class="form-group">
+      <label>Perfil / Rol:</label>
+
+      <select
+        [(ngModel)]="nuevoUsuario.id_perfil"
+        name="id_perfil"
+        class="form-control"
+        required>
+
+        <option [ngValue]="1">Administrador</option>
+        <option [ngValue]="2">Pastelero</option>
+        <option [ngValue]="3">Cliente</option>
+
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <app-button
+        type="submit"
+        variant="primary">
+        {{ modoEdicion ? 'Actualizar Usuario' : 'Guardar Usuario' }}
+      </app-button>
+    </div>
+
+  </form>
+
+</app-modal>

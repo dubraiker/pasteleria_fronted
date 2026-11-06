@@ -1,0 +1,45 @@
+<app-page-header
+  [title]="titulo"
+  [subtitle]="subtitulo">
+</app-page-header>
+
+<app-alert-box [message]="mensaje" type="error"></app-alert-box>
+
+<app-loading-spinner [isLoading]="cargando"></app-loading-spinner>
+
+<div class="grid-catalogo" *ngIf="!cargando">
+  <div *ngFor="let prod of productos" class="producto-card-wrapper">
+
+    <app-card [title]="prod.nombre">
+
+      <div class="producto-info">
+
+        <p class="descripcion">
+          {{ prod.descripcion }}
+        </p>
+
+        <div class="precio-tag">
+          <span>
+            {{ prod.precio | currency:'USD':'symbol':'1.2-2' }}
+          </span>
+        </div>
+
+        <div class="meta-info">
+
+          <span class="yolo-badge">
+            IA Ref: {{ prod.etiqueta_yolo }}
+          </span>
+
+          <app-status-badge
+            [text]="prod.estado !== false ? 'Disponible' : 'Agotado'"
+            [type]="prod.estado !== false ? 'success' : 'danger'">
+          </app-status-badge>
+
+        </div>
+
+      </div>
+
+    </app-card>
+
+  </div>
+</div>

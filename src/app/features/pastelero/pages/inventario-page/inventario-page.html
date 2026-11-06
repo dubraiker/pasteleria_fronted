@@ -1,0 +1,161 @@
+
+<app-page-header
+  title="Gestión de Inventario & Visión Artificial (YOLO)"
+  subtitle="Supervisión de productos horneados y catálogo de existencias en tienda">
+</app-page-header>
+
+<app-alert-box
+  [message]="mensaje"
+  [type]="tipoAlerta">
+</app-alert-box>
+
+<app-loading-spinner
+  [isLoading]="cargando">
+</app-loading-spinner>
+
+<app-card title="Stock de Pasteles y Repostería">
+
+  <div class="actions-bar">
+
+    <app-button
+      variant="primary"
+      (click)="abrirModalCrear()">
+      + Nuevo Producto
+    </app-button>
+
+  </div>
+
+  <app-datatable
+    [headers]="[
+      'Nombre del Pastel',
+      'Descripción',
+      'Precio',
+      'Etiqueta YOLO',
+      'Estado',
+      'Acciones'
+    ]">
+
+    <tr *ngFor="let prod of productos">
+
+      <td>
+        <strong>{{ prod.nombre }}</strong>
+      </td>
+
+      <td>
+        {{ prod.descripcion }}
+      </td>
+
+      <td>
+        {{ prod.precio | currency:'USD':'symbol':'1.2-2' }}
+      </td>
+
+      <td>
+        <span class="tag-yolo">
+          {{ prod.etiqueta_yolo }}
+        </span>
+      </td>
+
+      <td>
+        <app-status-badge
+          [text]="prod.estado !== false ? 'Disponible' : 'Agotado'"
+          [type]="prod.estado !== false ? 'success' : 'danger'">
+        </app-status-badge>
+      </td>
+
+      <td>
+        <app-button
+          variant="secondary"
+          (click)="abrirModalEditar(prod)">
+          Editar
+        </app-button>
+
+        <app-button
+          variant="danger"
+          (click)="eliminarProducto(prod)">
+          Eliminar
+        </app-button>
+      </td>
+
+    </tr>
+
+  </app-datatable>
+
+</app-card>
+
+<!-- Modal para registrar o editar producto -->
+
+<app-modal
+  [(isOpen)]="modalAbierto"
+  [title]="modoEdicion ? 'Editar Producto Horneado' : 'Registrar Producto Horneado'">
+
+  <form (ngSubmit)="guardarProducto()">
+
+    <div class="form-group">
+
+      <label>Nombre del Pastel / Producto:</label>
+
+      <input
+        type="text"
+        [(ngModel)]="nuevoProducto.nombre"
+        name="nombre"
+        class="form-control"
+        required />
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Descripción:</label>
+
+      <textarea
+        [(ngModel)]="nuevoProducto.descripcion"
+        name="descripcion"
+        class="form-control"
+        rows="2"
+        required>
+      </textarea>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Precio ($):</label>
+
+      <input
+        type="number"
+        step="0.01"
+        min="0"
+        [(ngModel)]="nuevoProducto.precio"
+        name="precio"
+        class="form-control"
+        required />
+
+    </div>
+
+    <div class="form-group">
+
+      <label>Etiqueta YOLO (Modelo de Visión Artificial):</label>
+
+      <input
+        type="text"
+        [(ngModel)]="nuevoProducto.etiqueta_yolo"
+        name="etiqueta_yolo"
+        class="form-control"
+        placeholder="ej: pastel_chocolate"
+        required />
+
+    </div>
+
+    <div class="modal-actions">
+
+      <app-button
+        type="submit"
+        variant="primary">
+        {{ modoEdicion ? 'Actualizar Producto' : 'Guardar en Inventario' }}
+      </app-button>
+
+    </div>
+
+  </form>
+
+</app-modal>

@@ -1,0 +1,14 @@
+
+.card-box {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-header h3 {
+  margin: 0 0 1rem;
+  color: #4a2c2a;
+  font-size: 1.2rem;
+}

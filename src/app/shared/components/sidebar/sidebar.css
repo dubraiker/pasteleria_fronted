@@ -1,0 +1,27 @@
+.sidebar-container {
+  width: 240px;
+  background-color: #f7f3ef;
+  min-height: calc(100vh - 60px);
+  border-right: 1px solid #e0d6cd;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 1rem 1.2rem;
+  color: #4a2c2a;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #ebdcd0;
+}
+
+.sidebar-nav a:hover,
+.active-link {
+  background-color: #8c5344;
+  color: white !important;
+}
